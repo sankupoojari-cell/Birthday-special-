@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love ❤️</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #fff0f3;
+            --accent: #c9184a;
+            --text: #590d22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(255,240,243,0.8), rgba(255,240,243,0.8)), 
+                        url('https://images.unsplash.com/photo-1530103862676-fa8c91bbea7b?q=80&w=2070') center/cover;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3rem, 12vw, 6rem);
+            color: var(--accent);
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            animation: fadeInUp 2s ease;
+        }
+
+        .time-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+            min-width: 80px;
+        }
+
+        .time-box span { display: block; font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+
+        /* Polaroid Gallery */
+        .gallery {
+            padding: 80px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: 0.4s;
+            max-width: 280px;
+        }
+
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 10; cursor: pointer; }
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
+        .polaroid p { font-family: 'Dancing Script', cursive; font-size: 1.4rem; margin-top: 15px; text-align: center; }
+
+        /* Surprise Letter */
+        #letter-reveal {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .btn-surprise {
+            padding: 18px 45px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(201, 24, 74, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-surprise:hover { transform: translateY(-5px); background: var(--primary); }
+
+        #letter-content {
+            display: none;
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 50px;
+            border-left: 8px solid var(--accent);
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        footer { padding: 50px; text-align: center; opacity: 0.6; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Happy Birthday!</h1>
+        <p>Counting every second until your special day...</p>
+        
+        <div class="countdown" id="timer">
+            <div class="time-box"><span id="days">00</span>Days</div>
+            <div class="time-box"><span id="hours">00</span>Hrs</div>
+            <div class="time-box"><span id="mins">00</span>Min</div>
+            <div class="time-box"><span id="secs">00</span>Sec</div>
+        </div>
+        <a href="#gallery-start" style="text-decoration: none; color: var(--accent); font-weight: 600;">Scroll to see our memories ↓</a>
+    </header>
+
+    <div id="gallery-start" class="gallery">
+        <!-- REPLACE WITH YOUR IMAGE URLS -->
+        <div class="polaroid">
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500" alt="Memory">
+            <p>The day it all started</p>
+        </div>
+        <div class="polaroid">
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=500" alt="Memory">
+            <p>Your beautiful smile</p>
+        </div>
+        <div class="polaroid">
+            <img src="https://images.unsplash.com/photo-1516589174184-c68526614460?w=500" alt="Memory">
+            <p>My favorite moment</p>
+        </div>
+    </div>
+
+    <section id="letter-reveal">
+        <button class="btn-surprise" onclick="openSurprise()">Click for a Surprise ❤️</button>
+        <div id="letter-content">
+            <h2 style="font-family: 'Dancing Script'; margin-bottom: 20px; color: var(--accent);">My Dearest,</h2>
+            <div id="typewriter"></div>
+            <p style="margin-top: 30px; font-weight: 600;">— Yours Forever</p>
+        </div>
+    </section>
+
+    <footer>Made with love for your special day.</footer>
+
+    <script>
+        // 1. SET BIRTHDAY DATE
+        const birthday = new Date("Oct 25, 2025 00:00:00").getTime();
+
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = birthday - now;
+
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+
+            if (diff < 0) {
+                clearInterval(timer);
+                document.getElementById('timer').innerHTML = "<h1>IT'S YOUR DAY! 🎂</h1>";
+            }
+        }, 1000);
+
+        // 2. SURPRISE REVEAL
+        const message = "I wanted to create something as special as you are. You make every day feel like a celebration, but today, the whole world should celebrate you. Happy Birthday to my favorite person in the entire universe. May this year be as bright and beautiful as your heart!";
+
+        function openSurprise() {
+            // Trigger Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff758f', '#ffffff']
+            });
+
+            document.querySelector('.btn-surprise').style.display = 'none';
+            document.getElementById('letter-content').style.display = 'block';
+            
+            // Typewriter Effect
+            let i = 0;
+            function type() {
+                if (i < message.length) {
+                    document.getElementById("typewriter").innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+    </script>
+</body>
+</html>
